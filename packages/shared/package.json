@@ -1,0 +1,14 @@
+{
+  "name": "@unused/shared",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "lint": "eslint src/"
+  },
+  "devDependencies": {
+    "typescript": "latest"
+  }
+}

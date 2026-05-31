@@ -1,0 +1,14 @@
+{
+  "name": "@unused/parser",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run --root ../..",
+    "lint": "eslint src/"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}

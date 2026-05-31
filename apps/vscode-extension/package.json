@@ -1,0 +1,249 @@
+{
+  "name": "unused",
+  "displayName": "Unused",
+  "description": "Find and remove unused code in TypeScript & JavaScript — unused files, unused exports, and commented-out code.",
+  "version": "0.0.1",
+  "publisher": "mayank-thakur",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Iammayank18/unused.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Iammayank18/unused/issues"
+  },
+  "homepage": "https://github.com/Iammayank18/unused#readme",
+  "license": "MIT",
+  "keywords": [
+    "dead code",
+    "unused code",
+    "unused files",
+    "unused exports",
+    "commented code",
+    "code cleanup",
+    "linter",
+    "typescript",
+    "javascript",
+    "refactoring"
+  ],
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Linters",
+    "Other"
+  ],
+  "icon": "resources/icon.png",
+  "galleryBanner": {
+    "color": "#1E1E1E",
+    "theme": "dark"
+  },
+  "activationEvents": [
+    "onView:unused.unusedFiles",
+    "onCommand:unused.analyzeFolder"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "unused.refresh",
+        "title": "Unused: Scan Workspace",
+        "icon": "$(play)"
+      },
+      {
+        "command": "unused.analyzeFolder",
+        "title": "Unused: Analyze Folder"
+      },
+      {
+        "command": "unused.showDetails",
+        "title": "Unused: Show Details"
+      },
+      {
+        "command": "unused.openSettings",
+        "title": "Unused: Open Settings",
+        "icon": "$(gear)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "unused.refresh",
+          "when": "view == unused.unusedFiles",
+          "group": "navigation"
+        },
+        {
+          "command": "unused.openSettings",
+          "when": "view == unused.unusedFiles",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "unused.analyzeFolder",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "unused.showDetails",
+          "when": "view == unused.unusedFiles"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "unused-explorer",
+          "title": "Unused",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "unused-explorer": [
+        {
+          "id": "unused.unusedFiles",
+          "name": "Unused Files",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "unused.unusedFiles",
+        "contents": "Unused helps you find and remove dead code.\n[Run Analysis](command:unused.refresh)\n[Open Settings](command:workbench.action.openSettings?%5B%22unused%22%5D)\n\nNo issues yet. Click the [Run Analysis](command:unused.refresh) link or the play button above to scan your workspace.\n\nSupports TypeScript, JavaScript, TSX and JSX."
+      }
+    ],
+    "configuration": {
+      "title": "Unused",
+      "properties": {
+        "unused.includePatterns": {
+          "type": "array",
+          "default": [
+            "**/*.{ts,tsx,js,jsx}"
+          ],
+          "description": "Glob patterns to include when analyzing workspace for unused code."
+        },
+        "unused.ignorePatterns": {
+          "type": "array",
+          "default": [
+            "**/node_modules/**",
+            "**/dist/**",
+            "**/out/**",
+            "**/build/**"
+          ],
+          "description": "Glob patterns to completely ignore when analyzing workspace for unused code."
+        },
+        "unused.rules.unusedFiles": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable detection of files that are never imported."
+        },
+        "unused.rules.unusedFiles.severity": {
+          "type": "string",
+          "default": "warning",
+          "enum": [
+            "error",
+            "warning",
+            "info"
+          ],
+          "description": "Severity level for unused file diagnostics."
+        },
+        "unused.rules.unusedExports": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable detection of exported symbols that are never imported."
+        },
+        "unused.rules.unusedExports.severity": {
+          "type": "string",
+          "default": "info",
+          "enum": [
+            "error",
+            "warning",
+            "info"
+          ],
+          "description": "Severity level for unused export diagnostics (runtime kind exports get one level higher)."
+        },
+        "unused.rules.commentedCode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable detection of potentially commented-out code blocks."
+        },
+        "unused.rules.commentedCode.severity": {
+          "type": "string",
+          "default": "info",
+          "enum": [
+            "error",
+            "warning",
+            "info"
+          ],
+          "description": "Severity level for commented-out code diagnostics."
+        },
+        "unused.rules.unusedImports": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable detection of imported symbols that are never used in the file."
+        },
+        "unused.rules.unusedImports.severity": {
+          "type": "string",
+          "default": "warning",
+          "enum": [
+            "error",
+            "warning",
+            "info"
+          ],
+          "description": "Severity level for unused import diagnostics."
+        },
+        "unused.includeEntryFiles": {
+          "type": "boolean",
+          "default": false,
+          "description": "When enabled, entry-point files (pages, layouts, app root, index files) are also checked for unused exports."
+        },
+        "unused.includeTestFiles": {
+          "type": "boolean",
+          "default": false,
+          "description": "When enabled, test and spec files are included in unused export analysis."
+        },
+        "unused.maxScanDepth": {
+          "type": "integer",
+          "default": 8,
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Maximum folder depth when browsing folders to analyze."
+        },
+        "unused.fileSizeLimit": {
+          "type": "integer",
+          "default": 512000,
+          "minimum": 0,
+          "description": "Skip files larger than this many bytes (0 = no limit)."
+        },
+        "unused.showProblemsPanel": {
+          "type": "boolean",
+          "default": true,
+          "description": "Push diagnostics to VS Code Problems panel."
+        },
+        "unused.showNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show info/warning notifications after analysis."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --minify",
+    "vsce:pack": "vsce package --no-dependencies",
+    "vsce:publish": "vsce publish --no-dependencies",
+    "build": "npm run package",
+    "dev": "npm run watch"
+  },
+  "devDependencies": {
+    "@unused/core-engine": "*",
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^3.9.1",
+    "esbuild": "^0.18.0",
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@unused/core-engine",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "lint": "eslint src/"
+  },
+  "devDependencies": {
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "@unused/graph": "^0.0.0",
+    "@unused/parser": "^0.0.0",
+    "@unused/rules": "^0.0.0",
+    "fast-glob": "^3.3.3"
+  }
+}
